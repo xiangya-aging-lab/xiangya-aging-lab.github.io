@@ -29,6 +29,41 @@ from classify_paper import (
     classify_clinical_basic,
 )
 
+try:
+    from impact_factor.core import Factor
+    _FACTOR = Factor()
+except Exception:
+    _FACTOR = None
+
+
+def lookup_journal_metrics(issn, eissn, journal_name, journal_abbrev):
+    """Resolve JCR IF + JCR quartile + CAS quartile from ISSN / name / abbrev.
+
+    Uses local SQLite via impact_factor package (JCR 2024 / CAS 2025 data).
+    Returns dict with keys present only when non-empty: impact_factor, jcr_quartile, cas_quartile.
+    """
+    if _FACTOR is None:
+        return {}
+    for query in (issn, eissn, journal_name, journal_abbrev):
+        if not query:
+            continue
+        try:
+            hits = _FACTOR.search(query)
+        except Exception:
+            continue
+        if hits:
+            h = hits[0]
+            out = {}
+            if h.get("factor") not in (None, "", "."):
+                out["impact_factor"] = h["factor"]
+            if h.get("jcr") not in (None, "", "."):
+                out["jcr_quartile"] = h["jcr"]
+            zky = h.get("zky")
+            if zky not in (None, "", "."):
+                out["cas_quartile"] = str(zky).replace(" ", "")  # "1 区" → "1区"
+            return out
+    return {}
+
 # ── Configuration ──
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -176,6 +211,13 @@ def extract_paper_data(pubmed_article):
     abstract = article.findtext(".//AbstractText", "")
     journal = article.findtext(".//Journal/Title", "")
     journal_abbrev = article.findtext(".//Journal/ISOAbbreviation", "")
+    issn = ""
+    eissn = ""
+    for issn_el in article.findall(".//Journal/ISSN"):
+        if issn_el.get("IssnType") == "Electronic":
+            eissn = issn_el.text or ""
+        else:
+            issn = issn_el.text or ""
     year = article.findtext(".//Journal/JournalIssue/PubDate/Year", "")
     month = article.findtext(".//Journal/JournalIssue/PubDate/Month", "")
     volume = article.findtext(".//Journal/JournalIssue/Volume", "")
@@ -210,6 +252,8 @@ def extract_paper_data(pubmed_article):
         "abstract": abstract or "",
         "journal": journal,
         "journal_abbrev": journal_abbrev,
+        "issn": issn,
+        "eissn": eissn,
         "year": year,
         "month": month,
         "volume": volume,
@@ -274,6 +318,22 @@ def format_bibtex_entry(paper):
     is_clinical, is_basic = classify_clinical_basic(
         paper["title"], paper.get("abstract", ""), paper_type
     )
+    metrics = lookup_journal_metrics(
+        paper.get("issn", ""), paper.get("eissn", ""),
+        paper.get("journal", ""), paper.get("journal_abbrev", ""),
+    )
+    paper["_metrics"] = metrics  # stash for summary output
+    paper["_classification"] = {
+        "category": category, "subcategory": subcategory,
+        "publication_type": paper_type,
+        "clinical": is_clinical, "basic": is_basic,
+    }
+    if "impact_factor" in metrics:
+        lines.append(f"  impact_factor={{{metrics['impact_factor']}}},")
+    if "jcr_quartile" in metrics:
+        lines.append(f"  jcr_quartile={{{metrics['jcr_quartile']}}},")
+    if "cas_quartile" in metrics:
+        lines.append(f"  cas_quartile={{{metrics['cas_quartile']}}},")
     lines.append(f"  category={{{category}}},")
     lines.append(f"  subcategory={{{subcategory}}},")
     lines.append(f"  publication_type={{{paper_type}}},")
@@ -378,10 +438,26 @@ def main():
     summary_file = REPO_ROOT / "scripts" / "new_papers_summary.md"
     lines = [f"# New Publications Found ({len(new_papers)})\n"]
     for paper in new_papers:
+        m = paper.get("_metrics", {})
+        c = paper.get("_classification", {})
+        metrics_bits = []
+        if "impact_factor" in m: metrics_bits.append(f"IF {m['impact_factor']}")
+        if "jcr_quartile" in m: metrics_bits.append(f"JCR {m['jcr_quartile']}")
+        if "cas_quartile" in m: metrics_bits.append(f"中科院 {m['cas_quartile']}")
+        class_bits = []
+        if c.get("category"): class_bits.append(c["category"])
+        if c.get("subcategory") and c["subcategory"] != "other":
+            class_bits.append(c["subcategory"])
+        if c.get("publication_type"): class_bits.append(c["publication_type"])
+        if c.get("clinical"): class_bits.append("clinical")
+        if c.get("basic"): class_bits.append("basic")
+
         lines.append(f"## {paper['title']}\n")
-        lines.append(f"- **Journal**: {paper['journal']}")
+        lines.append(f"- **Journal**: {paper['journal']}" + (
+            f" — {' · '.join(metrics_bits)}" if metrics_bits else " — *metrics not found*"))
         lines.append(f"- **Year**: {paper['year']}")
         lines.append(f"- **Key author**: {paper['matched_member']}")
+        lines.append(f"- **Classification**: {' · '.join(class_bits) if class_bits else '-'}")
         lines.append(f"- **DOI**: {paper['doi']}")
         lines.append(f"- **PMID**: {paper['pmid']}")
         lines.append("")
