@@ -195,6 +195,8 @@ scholar:
   query: "@*"
   group_by: year
   group_order: descending
+  sort_by: impact_factor
+  order: descending
 
 # Maximum number of authors to be shown for each publication (more authors are visible on click)
 max_author_limit:  # leave blank to always show all authors
