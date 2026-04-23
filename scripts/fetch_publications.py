@@ -334,6 +334,12 @@ def format_bibtex_entry(paper):
         lines.append(f"  jcr_quartile={{{metrics['jcr_quartile']}}},")
     if "cas_quartile" in metrics:
         lines.append(f"  cas_quartile={{{metrics['cas_quartile']}}},")
+    # zero-padded IF for jekyll-scholar string-based sort (string sort == numeric sort)
+    try:
+        sort_if_val = f"{float(metrics.get('impact_factor', 0) or 0):06.2f}"
+    except (TypeError, ValueError):
+        sort_if_val = "000.00"
+    lines.append(f"  sort_if={{{sort_if_val}}},")
     lines.append(f"  category={{{category}}},")
     lines.append(f"  subcategory={{{subcategory}}},")
     lines.append(f"  publication_type={{{paper_type}}},")
