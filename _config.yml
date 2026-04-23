@@ -195,7 +195,8 @@ scholar:
   query: "@*"
   group_by: year
   group_order: descending
-  sort_by: impact_factor
+  # sort_if is zero-padded (e.g. "011.80") so jekyll-scholar's string sort == numeric sort
+  sort_by: sort_if
   order: descending
 
 # Maximum number of authors to be shown for each publication (more authors are visible on click)
