@@ -11,7 +11,7 @@ Leveraging the extensive clinical resources and patient cohorts of the Departmen
 <div class="v2-utility-list">
   <div class="v2-utility-card">
     <h3>Inflammatory skin disease</h3>
-    <p>Centered on rosacea, conducting pathogenesis and therapeutic strategy research based on patient-derived samples, and leading multicenter randomized controlled trials of gabapentin, paroxetine, hydroxychloroquine, and other agents.</p>
+    <p>Centered on rosacea and hidradenitis suppurativa, conducting pathogenesis and therapeutic strategy research based on patient-derived samples, and leading multicenter randomized controlled trials of gabapentin, paroxetine, hydroxychloroquine, and other agents.</p>
   </div>
   <div class="v2-utility-card">
     <h3>Hair disorder clinical research</h3>
