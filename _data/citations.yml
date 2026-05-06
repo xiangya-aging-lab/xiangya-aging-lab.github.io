@@ -25,13 +25,13 @@ li2020embj:
   doi: "10.15252/embj.2019104365"
   citations: 71
 
+li2020jdermatol_epi:
+  doi: "10.1111/1346-8138.15301"
+  citations: 63
+
 chen2020jamacadderma:
   doi: "10.1016/j.jaad.2020.04.113"
   citations: 63
-
-li2020jdermatol_epi:
-  doi: "10.1111/1346-8138.15301"
-  citations: 62
 
 xiao2022sciadv:
   doi: "10.1126/sciadv.abf2017"
@@ -123,11 +123,15 @@ li2021pharmacolres:
 
 liu2022jciinsight:
   doi: "10.1172/jci.insight.161870"
-  citations: 24
+  citations: 25
 
 he2022plosone:
   doi: "10.1371/journal.pone.0263912"
   citations: 23
+
+deng2021intimm:
+  doi: "10.1016/j.intimp.2021.107558"
+  citations: 22
 
 mao2024agingcell_drug:
   doi: "10.1111/acel.14171"
@@ -135,10 +139,6 @@ mao2024agingcell_drug:
 
 huang2023actadv_preadolescent:
   doi: "10.2340/actadv.v103.13418"
-  citations: 21
-
-deng2021intimm:
-  doi: "10.1016/j.intimp.2021.107558"
   citations: 21
 
 peng2021fcdb:
@@ -241,6 +241,10 @@ wang2021dermther:
   doi: "10.1007/s00403-021-02259-2"
   citations: 12
 
+xiao2022annmed:
+  doi: "10.1080/07853890.2022.2077427"
+  citations: 12
+
 wang2021lasersmedsci:
   doi: "10.1007/s10103-020-03107-x"
   citations: 12
@@ -257,21 +261,21 @@ zhang2024jid_omics:
   doi: "10.1016/j.jid.2023.05.028"
   citations: 11
 
+chen2023frontnut:
+  doi: "10.3389/fnut.2023.1092781"
+  citations: 11
+
 xie2023prsglobal:
   doi: "10.1097/GOX.0000000000004810"
   citations: 11
 
-xiao2022annmed:
-  doi: "10.1080/07853890.2022.2077427"
+zhao2024biomarkres:
+  doi: "10.1186/s40364-024-00663-0"
   citations: 11
 
 rao2022frontmedlau:
   doi: "10.3389/fmed.2022.839954"
   citations: 11
-
-chen2023frontnut:
-  doi: "10.3389/fnut.2023.1092781"
-  citations: 10
 
 huang2023agingdis:
   doi: "10.14336/AD.2022.1217"
@@ -291,10 +295,6 @@ wang2020jdermatol:
 
 wang2025archdermatol:
   doi: "10.1007/s00403-025-03898-5"
-  citations: 10
-
-zhao2024biomarkres:
-  doi: "10.1186/s40364-024-00663-0"
   citations: 10
 
 chen2025jbiomsci:
@@ -425,20 +425,20 @@ jiang2021zhongnandaxu:
   doi: "10.11817/j.issn.1672-7347.2021.200801"
   citations: 4
 
+huang2026jaad_proteomic:
+  doi: "10.1016/j.jaad.2025.08.014"
+  citations: 3
+
+wang2025lifemed:
+  doi: "10.1093/lifemedi/lnaf005"
+  citations: 3
+
 wu2021dermther:
   doi: "10.1007/s13555-021-00605-w"
   citations: 3
 
-huang2026jaad_proteomic:
-  doi: "10.1016/j.jaad.2025.08.014"
-  citations: 2
-
 wang2025medcomm:
   doi: "10.1002/mco2.70205"
-  citations: 2
-
-wang2025lifemed:
-  doi: "10.1093/lifemedi/lnaf005"
   citations: 2
 
 tang2025jdermsci:
@@ -619,4 +619,12 @@ huang2026jamacadder_response:
 
 xia2026jaadint_factors:
   doi: "10.1016/j.jdin.2026.01.004"
+  citations: 0
+
+xia2026jdermatolo_efficacy:
+  doi: "10.1080/09546634.2026.2665538"
+  citations: 0
+
+lin2026annmed_tranexam:
+  doi: "10.1080/07853890.2026.2663263"
   citations: 0
