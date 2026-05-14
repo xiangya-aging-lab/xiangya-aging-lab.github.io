@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://xy-lilab.com/sitemap.xml
+Sitemap: https://www.xy-lilab.com/sitemap.xml
