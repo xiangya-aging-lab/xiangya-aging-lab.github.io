@@ -430,6 +430,15 @@ a[href^="mailto:"]:hover { text-decoration: none; opacity: 0.8; }
   .v2-site-footer__logos img { height: 28px; }
 }
 .v2-site-footer p { margin: 0; }
+.v2-site-footer__icp { margin-top: 0.5rem; }
+.v2-site-footer__icp a {
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+}
+.v2-site-footer__icp a:hover {
+  color: rgba(255,255,255,0.7);
+  text-decoration: underline;
+}
 
 /* ── Page Container ── */
 .v2-home { max-width: var(--v2-max); margin: 0 auto; padding: 0 1.5rem 2rem; }
