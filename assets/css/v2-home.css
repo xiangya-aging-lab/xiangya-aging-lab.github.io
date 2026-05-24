@@ -443,21 +443,16 @@ a[href^="mailto:"]:hover { text-decoration: none; opacity: 0.8; }
   color: rgba(255,255,255,0.25);
   margin: 0 0.5rem;
 }
-.v2-site-footer__beian {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
 .v2-site-footer__beian-icon {
-  width: 14px;
-  height: 16px;
-  vertical-align: middle;
+  width: 13px;
+  height: 15px;
+  vertical-align: -3px;
+  margin-right: 4px;
   display: inline-block;
 }
 @media (max-width: 600px) {
-  .v2-site-footer__icp { line-height: 1.8; }
+  .v2-site-footer__icp { line-height: 1.9; }
   .v2-site-footer__icp-sep { display: none; }
-  .v2-site-footer__beian { display: inline-flex; }
 }
 
 /* ── Page Container ── */
